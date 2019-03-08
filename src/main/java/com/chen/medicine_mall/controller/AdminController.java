@@ -2,6 +2,7 @@ package com.chen.medicine_mall.controller;
 
 import com.chen.medicine_mall.pojo.Admin;
 import com.chen.medicine_mall.service.AdminService;
+import com.chen.medicine_mall.service.AgencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+
+    @Autowired
+    private AgencyService agencyService;
 
     @Autowired
     private AdminService adminService;
