@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="table"><!-- layout文件路径-->
+<head>
+    <title>医药管理系统</title>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="/css/register.css">
+    <script type="text/javascript" src="/js/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="/js/messages_zh.js"></script>
+    <script type="text/javascript" src="/js/clientregister.js"></script>
+</head>
+<body>
+<!-- 注册-->
+<div id="form"  class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="content" style="padding-left: 89px;padding-top: 32px; height: 609px;">
+    <!-- <c:if test="${not empty uid}">
+         <form action="/loginExperiment/updateUser?uid=${uid}" method="post" id="registForm" th:if="">
+     <c:if test="${empty uid}">
+         <form action="/loginExperiment/login" method="post" id="registForm">
+     </c:if>-->
+    <div class="table-responsive" >
+        <div>
+            <form action="/login/mall/insert" method="get" id="registForm">
+                <div id="father" style="padding-left: 233px;">
+                    <div id="form2">
+                        <table th:object="${client}" border="0px" width="100%" height="100%" align="center" cellpadding="0px" cellspacing="0px" bgcolor="white" style="border-collapse: separate; border-spacing: 0px 10px;">
+                            <tr>
+                                <td colspan="3" >
+                                    <span th:text="${info}" style="padding-left: 198px;color: red"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" >
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <font size="5">购买信息</font>&nbsp;&nbsp;&nbsp;MALL INFORMATION
+                                </td>
+                            </tr>
+                            <!--<c:if test="${not empty uid}">
+                                <tr type="hidden"></tr>
+                            </c:if>-->
+                            <tr>
+                                <td width="180px">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;
+                                    <label for="sno">编号</label>
+                                </td>
+                                <td>
+                                    <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text" name="cno" size="35px" id="sno" placeholder = "编号"  th:value="*{cno}"/>
+                                </td>
+                                <td>
+                                    <span id="snoError"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="180px">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;
+                                    <label for="sname">姓名</label>
+                                </td>
+                                <td>
+                                    <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text" name="cname" size="35px" id="sname" placeholder = "姓名"  th:value="*{cname}"/>
+                                </td>
+                                <td>
+                                    <span id="snameError"></span>
+                                    <span id="showResult"></span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="180px">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;
+                                    <label for="csex">性别</label>
+                                </td>
+                                <td>
+                        <span style="margin-right: 155px;">
+                            <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input id="csex" type="radio" name="csex" value="男" onchange="cherkSex()" th:field="*{csex}"/>男
+                            <input type="radio" name="csex" value="女" onchange="cherkSex()" th:field="*{csex}"/>女<em></em>
+                        </span>
+                                </td>
+                                <td>
+                                    <span id="sexError"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="180px">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;
+                                    <label for="cage">年龄</label>
+                                </td>
+                                <td>
+                                    <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text" name="cage" size="35px" id="cage" placeholder = "输入年龄，必须是数字" th:value="*{cage}"/>
+                                </td>
+                                <td>
+                                    <span id="cageError"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="180px">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;
+                                    <label for="caddress">地址</label>
+                                </td>
+                                <td>
+                                    <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text" name="caddress" size="35px" id="caddress" placeholder = "输入地址" th:value="*{caddress}"/>
+                                </td>
+                                <td>
+                                    <span id="caddressError"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="180px">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;
+                                    <label for="cphone">电话</label>
+                                </td>
+                                <td>
+                                    <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text" name="cphone" size="35px" id="cphone" placeholder = "输入电话" th:value="*{cphone}"/>
+                                </td>
+                                <td>
+                                    <span id="cphoneError"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="180px">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;
+                                    <label for="csymptom">症状</label>
+                                </td>
+                                <td>
+                                    <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text" name="csymptom" size="35px" id="csymptom" placeholder = "输入症状" th:value="*{csymptom}"/>
+                                </td>
+                                <td>
+                                    <span id="csymptomError"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="180px">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;
+                                    <label for="cdate">录入日期</label>
+                                </td>
+                                <td>
+                                    <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="date" name="cdate" size="35px" id="cdate" placeholder = "输入日期" th:value="*{cdate}"/>
+                                </td>
+                                <td>
+                                    <span id="cdateError"></span>
+                                </td>
+                            </tr>
+                            <!--<input type="text" style="display:none" class="form-control"  name="mno" size="5" th:if="${medicine != null}" th:value="${medicine.mno}">
+                            <input type="text" style="display:none" class="form-control"  name="mno" size="5" th:if="${medicine == null}" th:value="">-->
+                            <tr>
+                                <td width="180px">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;
+                                    <label for="mname">药品名称</label>
+                                </td>
+                                <td>
+                                    <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text" name="mname" size="35px" id="mname" placeholder = "输入药品名称"/>
+                                </td>
+                                <td>
+                                    <span id="mnameError"></span>
+                                </td>
+                            </tr>
+                            <!--<input type="text" style="display:none" class="form-control"  name="ano" size="5" th:value="${agency.ano}">-->
+                            <tr>
+                                <td width="180px">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;
+                                    <label for="aname">经办人</label>
+                                </td>
+                                <td>
+                                    <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text" name="aname" size="35px" id="aname" placeholder = "输入经办人"/>
+                                </td>
+                                <td>
+                                    <span id="anameError"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <!--<button class="btn btn-lg btn-primary"><a th:href="@{'/client/update/'+${client.cno}}" style="color: white">更新</a></button>-->
+                                    <button class="btn btn-lg btn-primary" type="submit">提交</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br>
+                    <!--<div>
+                        <button class="btn btn-lg btn-primary"><a href="#" style="color: white">顾客注册</a></button>
+                    </div>-->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

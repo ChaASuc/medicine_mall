@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="table"><!-- layout文件路径-->
+<head>
+    <title>医药管理系统</title>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/register.css}">
+    <script type="text/javascript" th:src="@{/js/jquery-1.8.3.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.validate.js}"></script>
+    <script type="text/javascript" th:src="@{/js/messages_zh.js}"></script>
+    <script type="text/javascript" th:src="@{/js/agencyregister.js}"></script>
+</head>
+<body>
+<!-- 注册-->
+<div layout:fragment="content">
+    <h2 class="sub-header" style="text-align: center">经办人信息</h2>
+    <div class="table-responsive" style="padding-left: 113px">
+        <!-- border="0px" width="100%" height="100%" align="center" cellpadding="0px" cellspacing="0px" bgcolor="white" style="border-collapse: separate; border-spacing: 0px 10px;-->
+        <!--表格外框颜色-->
+        <table class="table table-striped" style="border:solid 1px black">
+        <thead>
+          <tr>
+            <th>编号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>电话</th>
+            <th>备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="agency: ${agencies}">
+            <td th:text="${agency.ano}"></td>
+            <td th:text="${agency.aname}"></td>
+            <td th:text="${agency.asex}"></td>
+            <td th:text="${agency.aphone}"></td>
+            <td th:text="${agency.aremark}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+</body>
+</html>

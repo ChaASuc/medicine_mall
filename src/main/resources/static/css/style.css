@@ -1,0 +1,29 @@
+a {
+    font-size: 30px
+}
+
+/*激活：红色*/
+a:active {
+    color: red;
+}
+
+/*未访问：蓝色、无下划线*/
+a:link {
+    color: blue;
+    text-decoration: none;
+}
+
+/*已访问：紫色、无下划线*/
+a:visited {
+    color: purple;
+    text-decoration: none;
+}
+
+/*鼠标移近：红色、下划线*/
+a:hover {
+    color: red;
+    text-decoration: underline;
+}
+table {border-collapse: collapse; font-size: 14px; width: 80%; margin: auto}
+table, th, td {border: 1px solid darkslategray;padding: 10px;text-align: center}
+

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生管理页面</title>
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div th:replace="~{fragment/header :: header}"></div>
+    <hr>
+        <div style="text-align: center">
+            <a th:href="@{/student/registerview}" style="font-size: 20px">
+                创建新用户
+            </a>
+        </div>
+    <br>
+    <hr>
+    <div style="text-align: center">
+        <form action="/student/select" method="post">
+            筛选查询：
+            <select name="select" style="height: 25px; width: 100px; color: black;" width="100">
+                <option value="sno">sno</option>
+                <option value="sname">sname</option>
+                <option value="sage">sage</option>
+                <option value="ssex">ssex</option>
+                <option value="sdept">sdept</option>
+            </select>&nbsp;
+            <input type="text" name="selectName" style="height: 20px">&nbsp;&nbsp;
+            <input type="submit" value="提交">
+        </form>
+    </div>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>系别</th>
+                <th>修改</th>
+                <th>删除</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:if="${students.size() eq 0}">
+                <td colspan="7">没有用户信息</td>
+            </tr>
+            <tr th:each="student: ${students}">
+                <td th:text="${student.sno}"></td>
+                <td th:text="${student.sname}"></td>
+                <td th:text="${student.ssex}"></td>
+                <td th:text="${student.sage}"></td>
+                <td th:text="${student.sdept}"></td>
+                <td>
+                    <a th:href="@{/student/registerview(sno=${student.sno})}" style="font-size: 15px">修改</a>
+                </td>
+                <td>
+                    <a th:href="@{'/student/delete/'+${student.sno}}" style="font-size: 15px">删除</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

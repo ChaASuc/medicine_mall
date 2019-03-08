@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="table"><!-- layout文件路径-->
+<head>
+    <title>医药管理系统</title>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="/css/register.css">
+    <script type="text/javascript" src="/js/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="/js/messages_zh.js"></script>
+    <script type="text/javascript" src="/js/clientregister.js"></script>
+    <!-- Bootstrap core CSS -->
+    <!--<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">-->
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link th:href="@{/css/ie10-viewport-bug-workaround.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+
+    <script th:src="@{/js/ie8-responsive-file-warning.js}"></script><![endif]-->
+    <script th:src="@{/js/ie-emulation-modes-warning.js}"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+    <![endif]-->
+</head>
+<body>
+<!-- 注册-->
+<div layout:fragment="content" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-left: 10px">
+    <div >
+    <h2 class="sub-header" style="text-align: center">购买信息</h2>
+    <div class="table-responsive">
+        <div class="panel panel-default">
+            <div style="padding-left: 20px">
+                <div class="form-group">
+                    <label >购买药品：</label>
+                    <button class="btn btn-primary"><a th:href="@{'/login/mall/buy/'+${client.cno}}" style="color: white">+ 购买</a></button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <form class="form-inline" name="form" method="get">
+                    <input type="text" style="display:none" class="form-control"  name="cno" size="5" th:value="${client.cno}">
+                    <div class="form-group">
+                        <label >药品编号</label>
+                        <input type="text" class="form-control"  name="mno" size="2">
+                    </div>
+                    <div class="form-group">
+                        <label >药品名称</label>
+                        <input type="text" class="form-control"  name="mname" size="2">
+                    </div>
+                    <div class="form-group">
+                        <label >药品服用方法</label>
+                        <input type="text" class="form-control"   name="mmode" size="2">
+                    </div>
+                    <div class="form-group">
+                        <label >药品功效</label>
+                        <input type="text" class="form-control"  name="mefficacy" size="2">
+                    </div>
+                    <div class="form-group">
+                        <label >经办人编号</label>
+                        <input type="text" class="form-control"  name="ano" size="2">
+                    </div>
+                    <div class="form-group">
+                        <label >经办人姓名</label>
+                        <input type="text" class="form-control"  name="aname" size="2">
+                    </div>
+                    <div class="form-group">
+                        <label >经办人电话</label>
+                        <input type="text" class="form-control"  name="aphone" size="8">
+                    </div>
+                    <div class="form-group">
+                        <label >经办人备注</label>
+                        <input type="text" class="form-control"  name="aremark" size="8">
+                    </div>
+                    <input type="submit"  class="btn btn-primary" value="精准查询" formaction="/login/mall/select" style="margin-top: 10px">&nbsp;&nbsp;
+                    <input type="submit" class="btn btn-primary" value="模糊查询" formaction="/login/mall/selectlike" style="margin-top: 10px">
+                </form>
+            </div>
+        </div>
+        <!-- border="0px" width="100%" height="100%" align="center" cellpadding="0px" cellspacing="0px" bgcolor="white" style="border-collapse: separate; border-spacing: 0px 10px;-->
+        <table class="table table-striped" style="border:solid 1px black; text-align: center">
+            <thead>
+            <tr>
+                <th style="text-align: center">顾客编号</th>
+                <th style="text-align: center">姓名</th>
+                <th style="text-align: center">住址</th>
+                <th style="text-align: center">电话号</th>
+                <!--<th style="text-align: center">症状</th>-->
+                <th>录入日期</th>
+                <th style="text-align: center">药品编号</th>
+                <th style="text-align: center">药品名称</th>
+                <th style="text-align: center">药品服用方法</th>
+                <th style="text-align: center">药品功效</th>
+                <th style="text-align: center">经办人编号</th>
+                <th style="text-align: center">经办姓名</th>
+                <th style="text-align: center">电话</th>
+                <th style="text-align: center">备注</th>
+                <th style="text-align: center">更新</th>
+                <th style="text-align: center">删除</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sum: ${sums}">
+                <td th:text="${sum.cno}"></td>
+                <td th:text="${sum.cname}"></td>
+                <td th:text="${sum.cphone}"></td>
+                <td th:text="${sum.caddress}"></td>
+                <!--<td th:text="${sum.csymptom}"></td>-->
+                <td th:text="${#dates.format(sum.cdate,'yyyy-MM-dd')}"></td>
+                <td th:text="${sum.mno}"></td>
+                <td th:text="${sum.mname}"></td>
+                <td th:text="${sum.mmode}"></td>
+                <td th:text="${sum.mefficacy}"></td>
+                <td th:text="${sum.ano}"></td>
+                <td th:text="${sum.aname}"></td>
+                <td th:text="${sum.aphone}"></td>
+                <td th:text="${sum.aremark}"></td>
+                <td>
+                    <button class="btn btn-primary"><a th:href="@{'/login/mall/update/'+${sum.cno}+'/'+${sum.ano}+'/'+${sum.mno}}"style="color: white">更新</a></button>
+                </td>
+                <td>
+                    <button class="btn btn-primary"><a style="color: white" th:href="@{'/login/mall/delete/'+${sum.cno}+'/'+${sum.ano}+'/'+${sum.mno}}" >删除</a></button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</div>
+<script>window.jQuery || document.write('<script th:src="@{/js/vendor/jquery.min.js}"><\/script>')</script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+<script th:src="@{/js/vendor/holder.min.js}"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
+</body>
+</html>

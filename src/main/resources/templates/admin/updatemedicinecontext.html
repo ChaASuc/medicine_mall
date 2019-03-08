@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="admin/table"><!-- layout文件路径-->
+<head>
+    <title>医药管理系统</title>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/register.css}">
+    <script type="text/javascript" th:src="@{/js/jquery-1.8.3.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.validate.js}"></script>
+    <script type="text/javascript" th:src="@{/js/messages_zh.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/js/clientregister.js}"></script>-->
+</head>
+<body>
+<!-- 注册-->
+<div id="form" class="table-responsive" layout:fragment="content" style="padding-left: 89px;padding-top: 32px; height: 609px;">
+    <!-- <c:if test="${not empty uid}">
+         <form action="/loginExperiment/updateUser?uid=${uid}" method="post" id="registForm" th:if="">
+     <c:if test="${empty uid}">
+         <form action="/loginExperiment/login" method="post" id="registForm">
+     </c:if>-->
+    <form action="/medicine/mall/updatemall" method="get" id="registForm" >
+        <div id="father">
+            <div id="form2" style="height: 545px">
+                <input type="text" style="display:none" name="ano" th:value="${admin.ano}"/>
+                <table th:object="${medicine}" border="0px" width="100%" height="100%" align="center" cellpadding="0px" cellspacing="0px" bgcolor="white" style="border-collapse: separate; border-spacing: 0px 10px;">
+                    <tr>
+                        <td colspan="3" >
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <font size="5">药品信息更新</font>&nbsp;&nbsp;&nbsp;USER UPDATE
+                        </td>
+                    </tr>
+                    <!--<c:if test="${not empty uid}">
+                        <tr type="hidden"></tr>
+                    </c:if>-->
+                    <tr>
+                        <td width="180px">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;
+                            <span th:text="编号不可修改 " style="color: red; font-size: 12px "></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="180px">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            <label for="sno">编号</label>
+                        </td>
+                        <td>
+                            <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text" name="mno" size="35px" id="sno" placeholder = "编号" onblur="cherkBlur()" th:value="*{mno}" readonly="true"/>
+                        </td>
+                        <td>
+                            <span id="snoError"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="180px">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            <label for="sname">名称</label>
+                        </td>
+                        <td>
+                            <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text" name="mname" size="35px" id="sname" placeholder = "名称" onblur="cherkBlur()" th:value="*{mname}"/>
+                        </td>
+                        <td>
+                            <span id="snameError"></span>
+                            <span id="showResult"></span>
+                        </td>
+                    </tr>
+                    <!--<tr>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            用户类型
+                        </td>
+                        <td>
+                            <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;
+                            <select name="type" id="choose" onblur="cherkBlur()">
+                                <option>请选择</option>
+                                <option value="客户"> 客户</option>
+                                <option value="管理员"> 管理员</option>
+                            </select>
+                        </td>
+                        <td>
+                            <span id="chooseError"></span>
+                        </td>
+                    </tr>-->
+                    <tr>
+                        <td width="180px">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            <label>服用方法</label>
+                        </td>
+                        <td>
+                            <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text" name="mmode" size="35px" id="cage" placeholder = "输入服用方法" onblur="cherkBlur()" th:value="*{mmode}"/>
+                        </td>
+                        <td>
+                            <span id="cageError"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="180px">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            <label >功效</label>
+                        </td>
+                        <td>
+                            <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text" name="mefficacy" size="35px" id="caddress" placeholder = "输入功效" onblur="cherkBlur()" th:value="*{mefficacy}"/>
+                        </td>
+                        <td>
+                            <span id="caddressError"></span>
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                         <td width="180px">
+                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             &nbsp;&nbsp;&nbsp;
+                             <label for="sdept">系别</label>
+                         </td>
+                         <td>
+                             <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text" name="sdept" size="35px" id="sdept" placeholder = "软件工程" onblur="cherkBlur()" value="软件工程"/>
+                         </td>
+                         <td>
+                             <span id="sdeptError"></span>
+                         </td>
+                     </tr>
+                    --> <!--<%&#45;&#45;<tr>
+                <td>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;
+                    兴趣爱好
+                </td>
+                <td>
+                    <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;
+                    <input name="hobby" type="checkbox" value="reading" onchange="changeHobby()"/> 阅读&nbsp;
+                    <input name="hobby" type="checkbox" value="music" onchange="changeHobby()"/> 音乐&nbsp;
+                    <input name="hobby" type="checkbox" value="sports" onchange="changeHobby()"/> 运动&nbsp;
+                </td>
+                <td>
+                    <span id="hobbyError"></span>
+                </td>
+            </tr>&#45;&#45;%>-->
+                    <tr>
+                        <td colspan="3">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-lg btn-primary" type="submit">保存</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

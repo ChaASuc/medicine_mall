@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="admin/table"><!-- layout文件路径-->
+<head>
+    <title>医药管理系统</title>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/register.css}">
+    <script type="text/javascript" th:src="@{/js/jquery-1.8.3.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.validate.js}"></script>
+    <script type="text/javascript" th:src="@{/js/messages_zh.js}"></script>
+</head>
+<body>
+<!-- 注册-->
+<div id="form" class="table-responsive" layout:fragment="content" style="padding-left: 89px;padding-top: 32px; height: 609px;">
+    <!-- <c:if test="${not empty uid}">
+         <form action="/loginExperiment/updateUser?uid=${uid}" method="post" id="registForm" th:if="">
+     <c:if test="${empty uid}">
+         <form action="/loginExperiment/login" method="post" id="registForm">
+     </c:if>-->
+    <form action="/agency/updatemallagency" method="get" id="registForm" >
+        <div id="father">
+            <div id="form2" style="height: 545px">
+                <input type="text" style="display:none" name="adminno" th:value="${admin.ano}"/>
+                <table th:object="${agency}" border="0px" width="100%" height="100%" align="center" cellpadding="0px" cellspacing="0px" bgcolor="white" style="border-collapse: separate; border-spacing: 0px 10px;">
+                    <tr>
+                        <td colspan="3" >
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <font size="5">经办人信息更新</font>&nbsp;&nbsp;&nbsp;USER UPDATE
+                        </td>
+                    </tr>
+                    <!--<c:if test="${not empty uid}">
+                        <tr type="hidden"></tr>
+                    </c:if>-->
+                    <tr>
+                        <td width="180px">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;
+                            <span th:text="编号不可修改 " style="color: red; font-size: 12px "></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="180px">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            <label for="sno">编号</label>
+                        </td>
+                        <td>
+                            <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text" name="ano" size="35px" id="sno" placeholder = "编号" onblur="cherkBlur()" th:value="*{ano}" readonly="true"/>
+                        </td>
+                        <td>
+                            <span id="snoError"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="180px">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            <label for="sname">姓名</label>
+                        </td>
+                        <td>
+                            <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text" name="aname" size="35px" id="sname" placeholder = "姓名" onblur="cherkBlur()" th:value="*{aname}"/>
+                        </td>
+                        <td>
+                            <span id="snameError"></span>
+                            <span id="showResult"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="180px">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            <span th:text="原密码： " style="color: red; font-size: 12px "></span>
+                        </td>
+                        <td>
+                            <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<span th:text="*{apassword}" style="color: red; font-size: 12px "></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="180px">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            <label for="spassword">密码</label>
+                        </td>
+                        <td>
+                            <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="password"  name="apassword" size="35px" id="spassword" placeholder="输入6-18位密码" onblur="cherkBlur()" th:value="*{apassword}"/>
+                        </td>
+                        <td>
+                            <span id="passwordError"></span>
+                        </td>
+                    </tr>
+
+                    <!--<tr>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            用户类型
+                        </td>
+                        <td>
+                            <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;
+                            <select name="type" id="choose" onblur="cherkBlur()">
+                                <option>请选择</option>
+                                <option value="客户"> 客户</option>
+                                <option value="管理员"> 管理员</option>
+                            </select>
+                        </td>
+                        <td>
+                            <span id="chooseError"></span>
+                        </td>
+                    </tr>-->
+                    <tr>
+                        <td width="180px">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            <label for="csex">性别</label>
+                        </td>
+                        <td>
+                        <span style="margin-right: 155px;">
+                            <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input id="csex" type="radio" name="asex" value="男" onchange="cherkSex()" onblur="cherkBlur()" th:field="*{asex}"/>男
+                            <input  type="radio" name="asex" value="女" onchange="cherkSex()" onblur="cherkBlur()" th:field="*{asex}"/>女<em></em>
+                        </span>
+                        </td>
+                        <td>
+                            <span id="sexError"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="180px">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            <label>电话</label>
+                        </td>
+                        <td>
+                            <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text" name="aphone" size="35px" id="cage" placeholder = "输入电话" onblur="cherkBlur()" th:value="*{aphone}"/>
+                        </td>
+                        <td>
+                            <span id="cageError"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="180px">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            <label>备注</label>
+                        </td>
+                        <td>
+                            <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text" name="aremark" size="35px" id="caddress" placeholder = "输入备注" onblur="cherkBlur()" th:value="*{aremark}"/>
+                        </td>
+                        <td>
+                            <span id="caddressError"></span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-lg btn-primary" type="submit">保存</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

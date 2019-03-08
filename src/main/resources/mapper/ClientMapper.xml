@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chen.medicine_mall.mapper.ClientMapper" >
+  <resultMap id="BaseResultMap" type="com.chen.medicine_mall.pojo.Client" >
+    <id column="cno" property="cno" jdbcType="VARCHAR" />
+    <result column="cname" property="cname" jdbcType="VARCHAR" />
+    <result column="csex" property="csex" jdbcType="VARCHAR" />
+    <result column="cage" property="cage" jdbcType="INTEGER" />
+    <result column="caddress" property="caddress" jdbcType="VARCHAR" />
+    <result column="cphone" property="cphone" jdbcType="VARCHAR" />
+    <result column="csymptom" property="csymptom" jdbcType="VARCHAR" />
+    <result column="cdate" property="cdate" jdbcType="TIMESTAMP" />
+    <result column="cpassword" property="cpassword" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    cno, cname, csex, cage, caddress, cphone, csymptom,  cdate, cpassword
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chen.medicine_mall.pojo.ClientExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from client
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from client
+    where cno = #{cno,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByClient" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from client
+    where
+    cname = #{cname,jdbcType=VARCHAR}
+    and
+    cpassword = #{cpassword,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from client
+    where cno = #{cno,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chen.medicine_mall.pojo.ClientExample" >
+    delete from client
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chen.medicine_mall.pojo.Client" >
+    insert into client (cno, cname, csex, 
+      cage, caddress, cphone, 
+      csymptom,
+      cdate, cpassword)
+    values (#{cno,jdbcType=VARCHAR}, #{cname,jdbcType=VARCHAR}, #{csex,jdbcType=VARCHAR}, 
+      #{cage,jdbcType=INTEGER}, #{caddress,jdbcType=VARCHAR}, #{cphone,jdbcType=VARCHAR}, 
+      #{csymptom,jdbcType=VARCHAR},
+      #{cdate,jdbcType=TIMESTAMP}, #{cpassword,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chen.medicine_mall.pojo.Client" >
+    insert into client
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cno != null" >
+        cno,
+      </if>
+      <if test="cname != null" >
+        cname,
+      </if>
+      <if test="csex != null" >
+        csex,
+      </if>
+      <if test="cage != null" >
+        cage,
+      </if>
+      <if test="caddress != null" >
+        caddress,
+      </if>
+      <if test="cphone != null" >
+        cphone,
+      </if>
+      <if test="csymptom != null" >
+        csymptom,
+      </if>
+      <if test="cdate != null" >
+        cdate,
+      </if>
+      <if test="cpassword != null" >
+        cpassword,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cno != null" >
+        #{cno,jdbcType=VARCHAR},
+      </if>
+      <if test="cname != null" >
+        #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="csex != null" >
+        #{csex,jdbcType=VARCHAR},
+      </if>
+      <if test="cage != null" >
+        #{cage,jdbcType=INTEGER},
+      </if>
+      <if test="caddress != null" >
+        #{caddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cphone != null" >
+        #{cphone,jdbcType=VARCHAR},
+      </if>
+      <if test="csymptom != null" >
+        #{csymptom,jdbcType=VARCHAR},
+      </if>
+      <if test="cdate != null" >
+        #{cdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cpassword != null" >
+        #{cpassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chen.medicine_mall.pojo.ClientExample" resultType="java.lang.Integer" >
+    select count(*) from client
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update client
+    <set >
+      <if test="record.cno != null" >
+        cno = #{record.cno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cname != null" >
+        cname = #{record.cname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.csex != null" >
+        csex = #{record.csex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cage != null" >
+        cage = #{record.cage,jdbcType=INTEGER},
+      </if>
+      <if test="record.caddress != null" >
+        caddress = #{record.caddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cphone != null" >
+        cphone = #{record.cphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.csymptom != null" >
+        csymptom = #{record.csymptom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cdate != null" >
+        cdate = #{record.cdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cpassword != null" >
+        cpassword = #{record.cpassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update client
+    set cno = #{record.cno,jdbcType=VARCHAR},
+      cname = #{record.cname,jdbcType=VARCHAR},
+      csex = #{record.csex,jdbcType=VARCHAR},
+      cage = #{record.cage,jdbcType=INTEGER},
+      caddress = #{record.caddress,jdbcType=VARCHAR},
+      cphone = #{record.cphone,jdbcType=VARCHAR},
+      csymptom = #{record.csymptom,jdbcType=VARCHAR},
+      cdate = #{record.cdate,jdbcType=TIMESTAMP},
+      cpassword = #{record.cpassword,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chen.medicine_mall.pojo.Client" >
+    update client
+    <set >
+      <if test="cname != null" >
+        cname = #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="csex != null" >
+        csex = #{csex,jdbcType=VARCHAR},
+      </if>
+      <if test="cage != null" >
+        cage = #{cage,jdbcType=INTEGER},
+      </if>
+      <if test="caddress != null" >
+        caddress = #{caddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cphone != null" >
+        cphone = #{cphone,jdbcType=VARCHAR},
+      </if>
+      <if test="csymptom != null" >
+        csymptom = #{csymptom,jdbcType=VARCHAR},
+      </if>
+      <if test="cdate != null" >
+        cdate = #{cdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cpassword != null" >
+        cpassword = #{cpassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cno = #{cno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chen.medicine_mall.pojo.Client" >
+    update client
+    set cname = #{cname,jdbcType=VARCHAR},
+      csex = #{csex,jdbcType=VARCHAR},
+      cage = #{cage,jdbcType=INTEGER},
+      caddress = #{caddress,jdbcType=VARCHAR},
+      cphone = #{cphone,jdbcType=VARCHAR},
+      csymptom = #{csymptom,jdbcType=VARCHAR},
+      cdate = #{cdate,jdbcType=TIMESTAMP},
+      cpassword = #{cpassword,jdbcType=VARCHAR}
+    where cno = #{cno,jdbcType=VARCHAR}
+  </update>
+</mapper>

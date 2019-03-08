@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chen.medicine_mall.mapper.SumMapper" >
+  <resultMap id="BaseResultMap" type="com.chen.medicine_mall.pojo.Sum" >
+    <result column="cno" property="cno" jdbcType="VARCHAR" />
+    <result column="cname" property="cname" jdbcType="VARCHAR" />
+    <result column="csex" property="csex" jdbcType="VARCHAR" />
+    <result column="cage" property="cage" jdbcType="INTEGER" />
+    <result column="caddress" property="caddress" jdbcType="VARCHAR" />
+    <result column="cphone" property="cphone" jdbcType="VARCHAR" />
+    <result column="csymptom" property="csymptom" jdbcType="VARCHAR" />
+    <result column="cdate" property="cdate" jdbcType="TIMESTAMP" />
+    <result column="ano" property="ano" jdbcType="VARCHAR" />
+    <result column="aname" property="aname" jdbcType="VARCHAR" />
+    <result column="asex" property="asex" jdbcType="VARCHAR" />
+    <result column="aphone" property="aphone" jdbcType="VARCHAR" />
+    <result column="aremark" property="aremark" jdbcType="VARCHAR" />
+    <result column="mno" property="mno" jdbcType="VARCHAR" />
+    <result column="mname" property="mname" jdbcType="VARCHAR" />
+    <result column="mmode" property="mmode" jdbcType="VARCHAR" />
+    <result column="mefficacy" property="mefficacy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    cno, cname, csex, cage, caddress, cphone, csymptom, cdate, ano, aname, asex, aphone, 
+    aremark, mno, mname, mmode, mefficacy
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chen.medicine_mall.pojo.SumExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sum
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select c.cno as cno, c.cname as cname, c.csex as csex, c.cage as cage, c.caddress as caddress, c.cphone as cphone,
+    c.csymptom as csymptom, c.cdate as cdate, a.ano as ano, a.aname as aname, a.asex as asex, a.aphone as aphone,
+    a.aremark as aremark, m.mno as mno, m.mname as mname, m.mmode as mmode, m.mefficacy as mefficacy
+    from client c, agency a, medicine m, cam cam
+    where c.cno = cam.cno
+    and a.ano = cam.ano
+    and m.mno = cam.mno
+  </select>
+  <select id="selectAllOrderBy" parameterType="com.chen.medicine_mall.pojo.Sum" resultMap="BaseResultMap">
+    select c.cno as cno, c.cname as cname, c.csex as csex, c.cage as cage, c.caddress as caddress, c.cphone as cphone,
+    c.csymptom as csymptom, c.cdate as cdate, a.ano as ano, a.aname as aname, a.asex as asex, a.aphone as aphone,
+    a.aremark as aremark, m.mno as mno, m.mname as mname, m.mmode as mmode, m.mefficacy as mefficacy
+    from client c, agency a, medicine m, cam cam
+    where c.cno = cam.cno
+    and a.ano = cam.ano
+    and m.mno = cam.mno
+    <if test="cno != null" >
+      order by c.cno,a.ano,m.mno
+    </if>
+    <if test="ano != null" >
+      order by a.ano,c.cno,m.mno
+    </if>
+    <if test="mno != null" >
+      order by m.mno,c.cno,a.ano
+    </if>
+  </select>
+  <select id="selectByNo" parameterType="com.chen.medicine_mall.pojo.Sum" resultMap="BaseResultMap">
+    select c.cno as cno, c.cname as cname, c.csex as csex, c.cage as cage, c.caddress as caddress, c.cphone as cphone,
+    c.csymptom as csymptom, c.cdate as cdate, a.ano as ano, a.aname as aname, a.asex as asex, a.aphone as aphone,
+    a.aremark as aremark, m.mno as mno, m.mname as mname, m.mmode as mmode, m.mefficacy as mefficacy
+    from client c, agency a, medicine m, cam cam
+    where c.cno = cam.cno
+    and a.ano = cam.ano
+    and m.mno = cam.mno
+    <if test="cno != null" >
+      and c.cno = #{cno,jdbcType=VARCHAR}
+    </if>
+    <if test="ano != null" >
+      and a.ano = #{ano,jdbcType=VARCHAR}
+    </if>
+    <if test="mno != null" >
+      and m.mno = #{mno,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <select id="selectByCno" parameterType="com.chen.medicine_mall.pojo.Sum" resultMap="BaseResultMap">
+    select c.cno as cno, c.cname as cname, c.csex as csex, c.cage as cage, c.caddress as caddress, c.cphone as cphone,
+    c.csymptom as csymptom, c.cdate as cdate, a.ano as ano, a.aname as aname, a.asex as asex, a.aphone as aphone,
+    a.aremark as aremark, m.mno as mno, m.mname as mname, m.mmode as mmode, m.mefficacy as mefficacy
+    from client c, agency a, medicine m, cam cam
+    where c.cno = cam.cno
+    and a.ano = cam.ano
+    and m.mno = cam.mno
+    and c.cno = #{cno,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByOne" parameterType="com.chen.medicine_mall.pojo.Sum" resultMap="BaseResultMap">
+    select c.cno as cno, c.cname as cname, c.csex as csex, c.cage as cage, c.caddress as caddress, c.cphone as cphone,
+    c.csymptom as csymptom, c.cdate as cdate, a.ano as ano, a.aname as aname, a.asex as asex, a.aphone as aphone,
+    a.aremark as aremark, m.mno as mno, m.mname as mname, m.mmode as mmode, m.mefficacy as mefficacy
+    from client c, agency a, medicine m, cam cam
+    where c.cno = cam.cno
+    and a.ano = cam.ano
+    and m.mno = cam.mno
+    <if test="cno != null and cno != ''">
+      and c.cno = #{cno,jdbcType=VARCHAR}
+    </if>
+    <if test="cname != null and cname != ''" >
+      and c.cname = #{cname,jdbcType=VARCHAR}
+    </if>
+    <if test="csex != null and csex != ''" >
+      and c.csex = #{csex,jdbcType=VARCHAR}
+    </if>
+    <if test="cage != null and cage != ''" >
+      and c.cage = #{cage,jdbcType=INTEGER}
+    </if>
+    <if test="caddress != null and caddress != ''" >
+      and c.caddress = #{caddress,jdbcType=VARCHAR}
+    </if>
+    <if test="cphone != null and cphone != ''" >
+      and c.cphone = #{cphone,jdbcType=VARCHAR}
+    </if>
+    <if test="csymptom != null and csymptom != ''" >
+      and c.csymptom = #{csymptom,jdbcType=VARCHAR}
+    </if>
+    <if test="cdate != null and cdate != ''" >
+      and c.cdate = #{cdate,jdbcType=TIMESTAMP}
+    </if>
+    <if test="ano != null and ano != ''" >
+      and a.ano = #{ano,jdbcType=VARCHAR}
+    </if>
+    <if test="aname != null and aname != ''" >
+      and a.aname = #{aname,jdbcType=VARCHAR}
+    </if>
+    <if test="asex != null and asex != ''" >
+      and a.asex = #{asex,jdbcType=VARCHAR}
+    </if>
+    <if test="aphone != null and aphone != ''" >
+      and a.aphone = #{aphone,jdbcType=VARCHAR}
+    </if>
+    <if test="aremark != null and aremark != ''" >
+      and a.aremark = #{aremark,jdbcType=VARCHAR}
+    </if>
+    <if test="mno != null and mno != ''" >
+      and m.mno = #{mno,jdbcType=VARCHAR}
+    </if>
+    <if test="mname != null and mname != ''" >
+      and mname = #{mname,jdbcType=VARCHAR}
+    </if>
+    <if test="mmode != null and mmode != ''" >
+      and m.mmode = #{mmode,jdbcType=VARCHAR}
+    </if>
+    <if test="mefficacy != null and mefficacy != ''" >
+      and m.mefficacy = #{mefficacy,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="selectLikeByOne" parameterType="com.chen.medicine_mall.pojo.Sum" resultMap="BaseResultMap">
+    select c.cno as cno, c.cname as cname, c.csex as csex, c.cage as cage, c.caddress as caddress, c.cphone as cphone,
+    c.csymptom as csymptom, c.cdate as cdate, a.ano as ano, a.aname as aname, a.asex as asex, a.aphone as aphone,
+    a.aremark as aremark, m.mno as mno, m.mname as mname, m.mmode as mmode, m.mefficacy as mefficacy
+    from client c, agency a, medicine m, cam cam
+    where c.cno = cam.cno
+    and a.ano = cam.ano
+    and m.mno = cam.mno
+    <if test="cno != null and cno != ''">
+      and c.cno like "%"#{cno,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="cname != null and cname != ''" >
+      and c.cname like "%"#{cname,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="csex != null and csex != ''" >
+      and c.csex like "%"#{csex,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="cage != null and cage != ''" >
+      and c.cage = #{cage,jdbcType=INTEGER}
+    </if>
+    <if test="caddress != null and caddress != ''" >
+      and c.caddress like "%"#{caddress,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="cphone != null and cphone != ''" >
+      and c.cphone like "%"#{cphone,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="csymptom != null and csymptom != ''" >
+      and c.csymptom like "%"#{csymptom,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="cdate != null and cdate != ''" >
+      and c.cdate = #{cdate,jdbcType=TIMESTAMP}
+    </if>
+    <if test="ano != null and ano != ''" >
+      and a.ano like "%"#{ano,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="aname != null and aname != ''" >
+      and a.aname like "%"#{aname,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="asex != null and asex != ''" >
+      and a.asex like "%"#{asex,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="aphone != null and aphone != ''" >
+      and a.aphone like "%"#{aphone,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="aremark != null and aremark != ''" >
+      and a.aremark like "%"#{aremark,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="mno != null and mno != ''" >
+      and m.mno like "%"#{mno,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="mname != null and mname != ''" >
+      and mname like "%"#{mname,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="mmode != null and mmode != ''" >
+      and m.mmode like "%"#{mmode,jdbcType=VARCHAR}"%"
+    </if>
+    <if test="mefficacy != null and mefficacy != ''" >
+      and m.mefficacy like "%"#{mefficacy,jdbcType=VARCHAR}"%"
+    </if>
+  </select>
+
+  <delete id="deleteByExample" parameterType="com.chen.medicine_mall.pojo.SumExample" >
+    delete from cam
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+
+  <delete id="batchDeletes" parameterType="java.util.List">
+
+    DELETE FROM cam where mno in
+
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+
+      #{item}
+
+    </foreach>
+  </delete>
+
+  <insert id="insert" parameterType="com.chen.medicine_mall.pojo.Sum" >
+    insert into cam (cno, ano, mno)
+    values (#{cno,jdbcType=VARCHAR}, #{ano,jdbcType=VARCHAR}, #{mno,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chen.medicine_mall.pojo.Sum" >
+    insert into sum
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cno != null" >
+        cno,
+      </if>
+      <if test="cname != null" >
+        cname,
+      </if>
+      <if test="csex != null" >
+        csex,
+      </if>
+      <if test="cage != null" >
+        cage,
+      </if>
+      <if test="caddress != null" >
+        caddress,
+      </if>
+      <if test="cphone != null" >
+        cphone,
+      </if>
+      <if test="csymptom != null" >
+        csymptom,
+      </if>
+      <if test="cdate != null" >
+        cdate,
+      </if>
+      <if test="ano != null" >
+        ano,
+      </if>
+      <if test="aname != null" >
+        aname,
+      </if>
+      <if test="asex != null" >
+        asex,
+      </if>
+      <if test="aphone != null" >
+        aphone,
+      </if>
+      <if test="aremark != null" >
+        aremark,
+      </if>
+      <if test="mno != null" >
+        mno,
+      </if>
+      <if test="mname != null" >
+        mname,
+      </if>
+      <if test="mmode != null" >
+        mmode,
+      </if>
+      <if test="mefficacy != null" >
+        mefficacy,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cno != null" >
+        #{cno,jdbcType=VARCHAR},
+      </if>
+      <if test="cname != null" >
+        #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="csex != null" >
+        #{csex,jdbcType=VARCHAR},
+      </if>
+      <if test="cage != null" >
+        #{cage,jdbcType=INTEGER},
+      </if>
+      <if test="caddress != null" >
+        #{caddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cphone != null" >
+        #{cphone,jdbcType=VARCHAR},
+      </if>
+      <if test="csymptom != null" >
+        #{csymptom,jdbcType=VARCHAR},
+      </if>
+      <if test="cdate != null" >
+        #{cdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ano != null" >
+        #{ano,jdbcType=VARCHAR},
+      </if>
+      <if test="aname != null" >
+        #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="asex != null" >
+        #{asex,jdbcType=VARCHAR},
+      </if>
+      <if test="aphone != null" >
+        #{aphone,jdbcType=VARCHAR},
+      </if>
+      <if test="aremark != null" >
+        #{aremark,jdbcType=VARCHAR},
+      </if>
+      <if test="mno != null" >
+        #{mno,jdbcType=VARCHAR},
+      </if>
+      <if test="mname != null" >
+        #{mname,jdbcType=VARCHAR},
+      </if>
+      <if test="mmode != null" >
+        #{mmode,jdbcType=VARCHAR},
+      </if>
+      <if test="mefficacy != null" >
+        #{mefficacy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chen.medicine_mall.pojo.SumExample" resultType="java.lang.Integer" >
+    select count(*) from sum
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sum
+    <set >
+      <if test="record.cno != null" >
+        cno = #{record.cno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cname != null" >
+        cname = #{record.cname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.csex != null" >
+        csex = #{record.csex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cage != null" >
+        cage = #{record.cage,jdbcType=INTEGER},
+      </if>
+      <if test="record.caddress != null" >
+        caddress = #{record.caddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cphone != null" >
+        cphone = #{record.cphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.csymptom != null" >
+        csymptom = #{record.csymptom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cdate != null" >
+        cdate = #{record.cdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ano != null" >
+        ano = #{record.ano,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aname != null" >
+        aname = #{record.aname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.asex != null" >
+        asex = #{record.asex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aphone != null" >
+        aphone = #{record.aphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aremark != null" >
+        aremark = #{record.aremark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mno != null" >
+        mno = #{record.mno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mname != null" >
+        mname = #{record.mname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mmode != null" >
+        mmode = #{record.mmode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mefficacy != null" >
+        mefficacy = #{record.mefficacy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sum
+    set cno = #{record.cno,jdbcType=VARCHAR},
+      cname = #{record.cname,jdbcType=VARCHAR},
+      csex = #{record.csex,jdbcType=VARCHAR},
+      cage = #{record.cage,jdbcType=INTEGER},
+      caddress = #{record.caddress,jdbcType=VARCHAR},
+      cphone = #{record.cphone,jdbcType=VARCHAR},
+      csymptom = #{record.csymptom,jdbcType=VARCHAR},
+      cdate = #{record.cdate,jdbcType=TIMESTAMP},
+      ano = #{record.ano,jdbcType=VARCHAR},
+      aname = #{record.aname,jdbcType=VARCHAR},
+      asex = #{record.asex,jdbcType=VARCHAR},
+      aphone = #{record.aphone,jdbcType=VARCHAR},
+      aremark = #{record.aremark,jdbcType=VARCHAR},
+      mno = #{record.mno,jdbcType=VARCHAR},
+      mname = #{record.mname,jdbcType=VARCHAR},
+      mmode = #{record.mmode,jdbcType=VARCHAR},
+      mefficacy = #{record.mefficacy,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateCam" parameterType="map" >
+    update cam
+    <set >
+      <if test="client.cno != null" >
+        cno = #{client.cno,jdbcType=VARCHAR},
+      </if>
+
+      <if test="agency.ano != null" >
+        ano = #{agency.ano,jdbcType=VARCHAR},
+      </if>
+
+      <if test="medicine.mno != null" >
+        mno = #{medicine.mno,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <where>
+      cno = #{sum.cno,jdbcType=VARCHAR}
+      and
+      ano = #{sum.ano,jdbcType=VARCHAR}
+      and
+      mno = #{sum.mno,jdbcType=VARCHAR}
+    </where>
+  </update>
+  <update id="updateCamTest" parameterType="map" >
+    update cam
+    <set >
+      <if test="cno != null" >
+        cno = #{cno,jdbcType=VARCHAR},
+      </if>
+
+      <if test="ano != null" >
+        ano = #{ano,jdbcType=VARCHAR},
+      </if>
+
+      <if test="mno != null" >
+        mno = #{mno,jdbcType=VARCHAR},
+      </if>
+      <where>
+        cno = #{sum.cno,jdbcType=VARCHAR}
+        and
+        ano = #{sum.ano,jdbcType=VARCHAR}
+        and
+        mno = #{sum.mno,jdbcType=VARCHAR}
+      </where>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

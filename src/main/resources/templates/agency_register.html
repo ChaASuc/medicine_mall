@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/register.css}">
+    <script type="text/javascript" th:src="@{/js/jquery-1.8.3.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.validate.js}"></script>
+    <script type="text/javascript" th:src="@{/js/messages_zh.js}"></script>
+    <script type="text/javascript" th:src="@{/js/agencyregister.js}"></script>
+</head>
+<body>
+<!-- 注册-->
+<div id="form" >
+   <!-- <c:if test="${not empty uid}">
+        <form action="/loginExperiment/updateUser?uid=${uid}" method="post" id="registForm" th:if="">
+    <c:if test="${empty uid}">
+        <form action="/loginExperiment/login" method="post" id="registForm">
+    </c:if>-->
+    <form action="#" method="get" id="registForm">
+    <div id="father">
+        <div id="form2">
+            <table border="0px" width="100%" height="100%" align="center" cellpadding="0px" cellspacing="0px" bgcolor="white" style="border-collapse: separate; border-spacing: 0px 10px;">
+                <tr>
+                    <td colspan="3" >
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <font size="5">注册</font>&nbsp;&nbsp;&nbsp;经办人注册
+                    </td>
+                </tr>
+                <!--<c:if test="${not empty uid}">
+                    <tr type="hidden"></tr>
+                </c:if>-->
+                <tr>
+                    <td width="180px">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;
+                        <label for="sno">编号</label>
+                    </td>
+                    <td>
+                        <!--todo-->
+                        <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text" name="ano" size="35px" id="sno" placeholder = "编号" onblur="cherkBlur()" value="a001"/>
+                    </td>
+                    <td>
+                        <span id="snoError"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="180px">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;
+                        <label for="sname">姓名</label>
+                    </td>
+                    <td>
+                        <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text" name="aname" size="35px" id="sname" placeholder = "姓名" onblur="cherkBlur()" value="张三丰"/>
+                    </td>
+                    <td>
+                        <span id="snameError"></span>
+                        <span id="showResult"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;
+                        密码
+                    </td>
+                    <td>
+                        <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="password"  name="apassword" size="35px" id="spassword" placeholder="输入6-18位密码" onblur="cherkBlur()" value="123456"/>
+                    </td>
+                    <td>
+                        <span id="passwordError"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;
+                        确认密码
+                    </td>
+                    <td>
+                        <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="password" name="repassword" size="35px" id="repassword" placeholder="确认密码" onblur="cherkBlur()" value="123456"/>
+                    </td>
+                    <td>
+                        <span id="repasswordError"></span>
+                    </td>
+                </tr>
+                <!--<tr>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;
+                        用户类型
+                    </td>
+                    <td>
+                        <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;
+                        <select name="type" id="choose" onblur="cherkBlur()">
+                            <option>请选择</option>
+                            <option value="客户"> 客户</option>
+                            <option value="管理员"> 管理员</option>
+                        </select>
+                    </td>
+                    <td>
+                        <span id="chooseError"></span>
+                    </td>
+                </tr>-->
+                <tr>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;
+                        性别
+                    </td>
+                    <td>
+                        <span style="margin-right: 155px;">
+                            <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="radio" name="asex" value="男" onchange="cherkSex()" onblur="cherkBlur()" checked/>男
+                            <input type="radio" name="asex" value="女" onchange="cherkSex()" onblur="cherkBlur()"/>女<em></em>
+                        </span>
+                    </td>
+                    <td>
+                        <span id="sexError"></span>
+                    </td>
+                </tr>
+                <!--<tr>
+                    <td width="180px">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;
+                        <label for="sname">姓名</label>
+                    </td>
+                    <td>
+                        <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text" name="aname" size="35px" id="sname" placeholder = "姓名" onblur="cherkBlur()" value="张三丰"/>
+                    </td>
+                    <td>
+                        <span id="snameError"></span>
+                        <span id="showResult"></span>
+                    </td>
+                </tr>-->
+                <tr>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;
+                        <label for="aphone">电话</label>
+                    </td>
+                    <td>
+                        <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<input type="text"  name="aphone" size="35px" id="aphone" placeholder="输入12位的电话号" onblur="cherkBlur()" value="123456789100"/>
+                    </td>
+                    <td>
+                        <span id="aphoneError"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="180px">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;
+                        <label for="remark">备注</label>
+                    </td>
+                    <td>
+                        <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;<textarea name="aremark" size="35px" id="remark" placeholder = "写入备注" onblur="cherkBlur()">我是xxx药店的经办人</textarea>
+                    </td>
+                    <td>
+                        <span id="aremarkError"></span>
+                    </td>
+                </tr>
+                <!--<%&#45;&#45;<tr>
+                <td>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;
+                    兴趣爱好
+                </td>
+                <td>
+                    <em style="color: red;">*</em>&nbsp;&nbsp;&nbsp;
+                    <input name="hobby" type="checkbox" value="reading" onchange="changeHobby()"/> 阅读&nbsp;
+                    <input name="hobby" type="checkbox" value="music" onchange="changeHobby()"/> 音乐&nbsp;
+                    <input name="hobby" type="checkbox" value="sports" onchange="changeHobby()"/> 运动&nbsp;
+                </td>
+                <td>
+                    <span id="hobbyError"></span>
+                </td>
+            </tr>&#45;&#45;%>-->
+                <tr>
+                    <td colspan="3">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="submit" value="注      册" height="50px"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    </form>
+</div>
+</body>
+</html>

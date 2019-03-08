@@ -1,0 +1,31 @@
+#form{
+    height: 500px;
+    padding-top: 70px;
+    margin-bottom: 10px;
+}
+a{
+    text-decoration: none;
+}
+
+label.error{
+    padding-left: 30px;
+    font-family:georgia;
+    font-size: 15px;
+    font-style: normal;
+    color: red;
+}
+
+label.success{
+    padding-left: 30px;
+}
+
+#father{
+    border: 0px solid white;
+    padding-left: 471px;
+}
+
+#form2{
+    border: 5px solid gray;
+    width: 660px;
+    height: 500px;
+}

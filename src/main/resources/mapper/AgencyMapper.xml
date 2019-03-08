@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chen.medicine_mall.mapper.AgencyMapper" >
+  <resultMap id="BaseResultMap" type="com.chen.medicine_mall.pojo.Agency" >
+    <id column="ano" property="ano" jdbcType="VARCHAR" />
+    <result column="aname" property="aname" jdbcType="VARCHAR" />
+    <result column="asex" property="asex" jdbcType="VARCHAR" />
+    <result column="aphone" property="aphone" jdbcType="VARCHAR" />
+    <result column="aremark" property="aremark" jdbcType="VARCHAR" />
+    <result column="apassword" property="apassword" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ano, aname, asex, aphone, aremark, apassword
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chen.medicine_mall.pojo.AgencyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from agency
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from agency
+    where ano = #{ano,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByAname" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from agency
+    where aname = #{aname,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByAgency" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from agency
+    where
+    aname = #{aname,jdbcType=VARCHAR}
+    and
+    apassword = #{apassword,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from agency
+    where ano = #{ano,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chen.medicine_mall.pojo.AgencyExample" >
+    delete from agency
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chen.medicine_mall.pojo.Agency" >
+    insert into agency (ano, aname, asex, 
+      aphone, aremark, apassword
+      )
+    values (#{ano,jdbcType=VARCHAR}, #{aname,jdbcType=VARCHAR}, #{asex,jdbcType=VARCHAR}, 
+      #{aphone,jdbcType=VARCHAR}, #{aremark,jdbcType=VARCHAR}, #{apassword,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chen.medicine_mall.pojo.Agency" >
+    insert into agency
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ano != null" >
+        ano,
+      </if>
+      <if test="aname != null" >
+        aname,
+      </if>
+      <if test="asex != null" >
+        asex,
+      </if>
+      <if test="aphone != null" >
+        aphone,
+      </if>
+      <if test="aremark != null" >
+        aremark,
+      </if>
+      <if test="apassword != null" >
+        apassword,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ano != null" >
+        #{ano,jdbcType=VARCHAR},
+      </if>
+      <if test="aname != null" >
+        #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="asex != null" >
+        #{asex,jdbcType=VARCHAR},
+      </if>
+      <if test="aphone != null" >
+        #{aphone,jdbcType=VARCHAR},
+      </if>
+      <if test="aremark != null" >
+        #{aremark,jdbcType=VARCHAR},
+      </if>
+      <if test="apassword != null" >
+        #{apassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chen.medicine_mall.pojo.AgencyExample" resultType="java.lang.Integer" >
+    select count(*) from agency
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update agency
+    <set >
+      <if test="record.ano != null" >
+        ano = #{record.ano,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aname != null" >
+        aname = #{record.aname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.asex != null" >
+        asex = #{record.asex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aphone != null" >
+        aphone = #{record.aphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aremark != null" >
+        aremark = #{record.aremark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apassword != null" >
+        apassword = #{record.apassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update agency
+    set ano = #{record.ano,jdbcType=VARCHAR},
+      aname = #{record.aname,jdbcType=VARCHAR},
+      asex = #{record.asex,jdbcType=VARCHAR},
+      aphone = #{record.aphone,jdbcType=VARCHAR},
+      aremark = #{record.aremark,jdbcType=VARCHAR},
+      apassword = #{record.apassword,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chen.medicine_mall.pojo.Agency" >
+    update agency
+    <set >
+      <if test="aname != null" >
+        aname = #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="asex != null" >
+        asex = #{asex,jdbcType=VARCHAR},
+      </if>
+      <if test="aphone != null" >
+        aphone = #{aphone,jdbcType=VARCHAR},
+      </if>
+      <if test="aremark != null" >
+        aremark = #{aremark,jdbcType=VARCHAR},
+      </if>
+      <if test="apassword != null" >
+        apassword = #{apassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ano = #{ano,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chen.medicine_mall.pojo.Agency" >
+    update agency
+    set aname = #{aname,jdbcType=VARCHAR},
+      asex = #{asex,jdbcType=VARCHAR},
+      aphone = #{aphone,jdbcType=VARCHAR},
+      aremark = #{aremark,jdbcType=VARCHAR},
+      apassword = #{apassword,jdbcType=VARCHAR}
+    where ano = #{ano,jdbcType=VARCHAR}
+  </update>
+</mapper>

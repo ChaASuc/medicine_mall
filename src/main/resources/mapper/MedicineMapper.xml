@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chen.medicine_mall.mapper.MedicineMapper" >
+  <resultMap id="BaseResultMap" type="com.chen.medicine_mall.pojo.Medicine" >
+    <id column="mno" property="mno" jdbcType="VARCHAR" />
+    <result column="mname" property="mname" jdbcType="VARCHAR" />
+    <result column="mmode" property="mmode" jdbcType="VARCHAR" />
+    <result column="mefficacy" property="mefficacy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mno, mname, mmode, mefficacy
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chen.medicine_mall.pojo.MedicineExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from medicine
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from medicine
+    where mno = #{mno,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByMname" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from medicine
+    where mname = #{mname,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from medicine
+    where mno = #{mno,jdbcType=VARCHAR}
+  </delete>
+  <delete id="batchDeletes" parameterType="java.util.List">
+
+    DELETE FROM medicine where mno in
+
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+
+      #{item}
+
+    </foreach>
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chen.medicine_mall.pojo.MedicineExample" >
+    delete from medicine
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chen.medicine_mall.pojo.Medicine" >
+    insert into medicine (mno, mname, mmode, 
+      mefficacy)
+    values (#{mno,jdbcType=VARCHAR}, #{mname,jdbcType=VARCHAR}, #{mmode,jdbcType=VARCHAR}, 
+      #{mefficacy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chen.medicine_mall.pojo.Medicine" >
+    insert into medicine
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mno != null" >
+        mno,
+      </if>
+      <if test="mname != null" >
+        mname,
+      </if>
+      <if test="mmode != null" >
+        mmode,
+      </if>
+      <if test="mefficacy != null" >
+        mefficacy,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mno != null" >
+        #{mno,jdbcType=VARCHAR},
+      </if>
+      <if test="mname != null" >
+        #{mname,jdbcType=VARCHAR},
+      </if>
+      <if test="mmode != null" >
+        #{mmode,jdbcType=VARCHAR},
+      </if>
+      <if test="mefficacy != null" >
+        #{mefficacy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chen.medicine_mall.pojo.MedicineExample" resultType="java.lang.Integer" >
+    select count(*) from medicine
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update medicine
+    <set >
+      <if test="record.mno != null" >
+        mno = #{record.mno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mname != null" >
+        mname = #{record.mname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mmode != null" >
+        mmode = #{record.mmode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mefficacy != null" >
+        mefficacy = #{record.mefficacy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update medicine
+    set mno = #{record.mno,jdbcType=VARCHAR},
+      mname = #{record.mname,jdbcType=VARCHAR},
+      mmode = #{record.mmode,jdbcType=VARCHAR},
+      mefficacy = #{record.mefficacy,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chen.medicine_mall.pojo.Medicine" >
+    update medicine
+    <set >
+      <if test="mname != null" >
+        mname = #{mname,jdbcType=VARCHAR},
+      </if>
+      <if test="mmode != null" >
+        mmode = #{mmode,jdbcType=VARCHAR},
+      </if>
+      <if test="mefficacy != null" >
+        mefficacy = #{mefficacy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mno = #{mno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chen.medicine_mall.pojo.Medicine" >
+    update medicine
+    set mname = #{mname,jdbcType=VARCHAR},
+      mmode = #{mmode,jdbcType=VARCHAR},
+      mefficacy = #{mefficacy,jdbcType=VARCHAR}
+    where mno = #{mno,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="admin/table"><!-- layout文件路径-->
+<head>
+    <title>医药管理系统</title>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="/css/register.css">
+    <script type="text/javascript" src="/js/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="/js/messages_zh.js"></script>
+    <script type="text/javascript" src="/js/clientregister.js"></script>
+    <!-- Bootstrap core CSS -->
+    <!--<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">-->
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link th:href="@{/css/ie10-viewport-bug-workaround.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+
+    <script th:src="@{/js/ie8-responsive-file-warning.js}"></script><![endif]-->
+    <script th:src="@{/js/ie-emulation-modes-warning.js}"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            //全选
+            $("#selectAll").click(function () {
+                if (this.checked) {
+                    $("input[name=deleteId]").prop("checked", true);
+                } else {
+                    $("input[name=deleteId]").prop("checked", false);
+                }
+            });
+
+            $("input[name=deleteId]").click(function () {
+                var allChecked = true;
+                $("input[name=deleteId]").each(function(){
+                    if(!$(this).prop("checked")){
+                        allChecked = false;
+                    }
+                });
+                if(allChecked){
+                    $("#selectAll").prop("checked",true);
+                } else {
+                    $("#selectAll").prop("checked",false);
+                }
+            });
+
+            //删除用户
+            $("#delete").click(function () {
+                var ids = [];
+                $("input[name=deleteId]:checked").each(function(index){
+                    ids[index] = $(this).val();
+                });
+                if (ids.length === 0){
+                    alert("没有选中的选项");
+                    return false;
+                }
+                $.ajax({
+                    url : "http://localhost:8080/medicine/checkdelete",
+                    data: {"ids": ids},
+                    cache : false,
+                    async : false,
+                    type : "GET",
+                    success:function(data){
+                        if (data === "true"){
+                            window.location.reload();
+                        }
+                    }
+                });
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<!-- 注册-->
+<div layout:fragment="content" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div >
+    <h2 class="sub-header" style="text-align: center">经办人信息</h2>
+    <div class="table-responsive">
+        <div class="panel panel-default">
+            <!--<div style="padding-left: 20px">
+                <div class="form-group">
+                    <label >购买药品：</label>
+                    <button class="btn btn-primary"><a th:href="@{'/login/mall/buy/'+${client.cno}}" style="color: white">+ 购买</a></button>
+                </div>
+            </div>-->
+            <div class="panel-body">
+                <div>
+                    <div class="form-group">
+                        <label >添加经办人：</label>
+                        <button class="btn btn-primary"><a th:href="@{'/agency/mall/insertview/'+${admin.ano}}" style="color: white">+ 添加</a></button>
+                    </div>
+                </div>
+                <form class="form-inline" name="form" method="get">
+                    <input type="text" th:value="${admin.ano}" name="adminno" style="display:none">
+                    <div class="form-group">
+                        <label >编号</label>
+                        <input type="text" class="form-control"  name="ano" size="4">
+                    </div>
+                    <div class="form-group">
+                        <label >姓名</label>
+                        <input type="text" class="form-control"  name="aname" size="4">
+                    </div>
+                    <div class="form-group">
+                        <label>性别</label>
+                        <input type="text" class="form-control"   name="asex" size="4">
+                    </div>
+                    <div class="form-group">
+                        <label >电话</label>
+                        <input type="text" class="form-control"  name="aphone" size="4">
+                    </div>
+                    <div class="form-group">
+                        <label >备注</label>
+                        <input type="text" class="form-control"  name="aremark" size="4">
+                    </div>
+                    <input type="submit"  class="btn btn-primary" value="精准查询" formaction="/agency/mall/select" >&nbsp;&nbsp;
+                    <input type="submit" class="btn btn-primary" value="模糊查询" formaction="/agency/mall/selectlike">
+                </form>
+            </div>
+        </div>
+        <div>
+            批量删除：
+            <button class="btn btn-primary" ><a th:id="delete" href="#"  style="color: white"> - 删除</a></button>
+
+        </div>
+
+        <!-- border="0px" width="100%" height="100%" align="center" cellpadding="0px" cellspacing="0px" bgcolor="white" style="border-collapse: separate; border-spacing: 0px 10px;-->
+        <table class="table table-striped" style="border:solid 1px black; text-align: center">
+            <thead>
+            <tr >
+                <th style ="text-align: center" ><input th:type="checkbox" th:id="selectAll" title="点击全选/取消"/></th>
+
+                <th style="text-align: center">编号</th>
+                <th style="text-align: center">姓名</th>
+                <th style="text-align: center">性别</th>
+                <th style="text-align: center">电话</th>
+                <th style="text-align: center">备注</th>
+                <th style="text-align: center">更新</th>
+                <th style="text-align: center">删除</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="agency: ${agencies}">
+                <td><input th:type="checkbox" th:value="${agency.ano}" th:name="deleteId" /></td>
+
+                <td th:text="${agency.ano}"></td>
+                <td th:text="${agency.aname}"></td>
+                <td th:text="${agency.asex}"></td>
+                <td th:text="${agency.aphone}"></td>
+                <td th:text="${agency.aremark}"></td>
+                <td>
+                    <button class="btn btn-primary"><a th:href="@{'/agency/mall/update/'+${agency.ano}+'/'+${admin.ano}}"style="color: white">更新</a></button>
+                </td>
+                <td>
+                    <button class="btn btn-primary"><a style="color: white" th:href="@{'/agency/mall/delete/'+${agency.ano}+'/'+${admin.ano}}" >删除</a></button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</div>
+<script>window.jQuery || document.write('<script th:src="@{/js/vendor/jquery.min.js}"><\/script>')</script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+<script th:src="@{/js/vendor/holder.min.js}"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
+</body>
+</html>

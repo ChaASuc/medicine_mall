@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>医药管理系统</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link th:href="@{/css/ie10-viewport-bug-workaround.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/signin.css}" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <script th:src="@{/js/ie8-responsive-file-warning.js}"></script><![endif]-->
+    <script th:src="@{/js/ie-emulation-modes-warning.js}"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="container">
+
+    <form class="form-signin" action="/login/member" method="get">
+        <h2 class="form-signin-heading">登入界面</h2>
+        <span th:text="${info}" style="color: red; font-size: 17px "></span>
+        <label for="inputEmail" class="sr-only">请输入用户名</label>
+        <input type="text" id="inputEmail" class="form-control" placeholder="请输入用户名" name="name" required autofocus><br>
+        <label for="inputPassword" class="sr-only">请输入密码</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="请输入密码" name="password" required><br>
+        <!--<div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>-->
+        <div style="padding-left: 54px">
+            <!--<button type="submit">Sign in</button>-->
+            <button class="btn btn-lg btn-primary" type="submit">登入</button>&nbsp;&nbsp;
+            <button class="btn btn-lg btn-primary"><a href="/login/clientview" style="color: white">顾客注册</a></button>
+        </div>
+    </form>
+
+</div> <!-- /container -->
+
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
+</body>
+</html>
